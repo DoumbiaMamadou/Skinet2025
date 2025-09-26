@@ -8,8 +8,14 @@ public interface ISpecification<T>
     Expression<Func<T, bool>> Criteria { get; }//retourner le critere
     Expression<Func<T, object>>? Orderby { get; }
     Expression<Func<T, object>>? OrderbyDescending { get; }
-    
-    bool isDistinct { get;  }
+
+    bool isDistinct { get; }
+
+    int Take { get; }
+    int Skip { get; }
+
+    bool IsPaginationEnabled { get; }
+    IQueryable<T> ApplyCriteria(IQueryable<T> query);
 }
 
 
