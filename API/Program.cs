@@ -1,3 +1,4 @@
+using API.Middleware;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -15,13 +16,23 @@ builder.Services.AddDbContext<StoreContext>(options =>
 });
 
 
-
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+builder.Services.AddCors();
+
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 // builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
+
+app.UseCors(x => x.AllowAnyHeader().AllowAnyHeader()
+.WithOrigins("http://localhost:4200","https://localhost:4200"));
+
+app.MapControllers();
 
 
 // Configure the HTTP request pipeline.
@@ -30,7 +41,7 @@ var app = builder.Build();
 //     app.MapOpenApi();
 // }
 
-app.MapControllers();
+
 
 try
 {
