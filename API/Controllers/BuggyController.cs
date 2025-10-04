@@ -8,6 +8,11 @@ namespace API.Controllers;
 public class BuggyController : BaseApiController
 {
     [HttpGet("unauthorized")]
+     public IActionResult GetUnthorized()
+    {
+        return Unauthorized();
+    }
+
     public IActionResult GetBadRequest()
     {
         return BadRequest("Ce n'est pas une bonne requête ");

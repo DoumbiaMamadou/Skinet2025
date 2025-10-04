@@ -18,8 +18,7 @@ public class ProductsController(IGenericRepository<Product> repo) : BaseApiContr
     {
         var spec = new ProductSpecification(specParams);
 
-        
-        
+                
         return Ok(await CreatePagedResult(repo, spec, specParams.PageIndex, specParams.PageSize));
     }
 

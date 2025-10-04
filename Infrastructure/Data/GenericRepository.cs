@@ -51,16 +51,11 @@ public class GenericRepository<T>(StoreContext context) : IGenericRepository<T> 
         return await ApplySpecification(spec).ToListAsync();
     }
 
-    public Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec)
+    public async Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec)
     {
-        throw new NotImplementedException();
+        return await ApplySpecification(spec).ToListAsync();
     }
-
-    public Task<IReadOnlyList<TResult>> ListAsync<TResult>(ISpecification<T> spec)
-    {
-        throw new NotImplementedException();
-    }
-
+ 
     public void Remove(T entity)
     {
         context.Set<T>().Remove(entity);
@@ -82,7 +77,7 @@ public class GenericRepository<T>(StoreContext context) : IGenericRepository<T> 
         return SpecificationEvaluator<T>.GetQuery(context.Set<T>().AsQueryable(), spec);//appliquer la specification
     }
 
-    private IQueryable<TResult> ApplySpecification<TResult>(ISpecification<T, TResult> spec)//
+    private IQueryable<TResult> ApplySpecification<TResult>(ISpecification<T, TResult> spec)//Prend comme paramètre T et retourne le type Result comme résultat
     {
         return SpecificationEvaluator<T>.GetQuery<T, TResult>(context.Set<T>().AsQueryable(), spec);//appliquer la specification
     }

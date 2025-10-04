@@ -13,7 +13,7 @@ public class BaseSpecification<T>(Expression<Func<T, bool>> criteria) : ISpecifi
 
     }
 
-    public Expression<Func<T, bool>>? Criteria => criteria;//retourner le critere
+    public Expression<Func<T, bool>> Criteria => criteria;//retourner le critere
 
     public Expression<Func<T, object>>? Orderby { get; private set; } = null;
 
