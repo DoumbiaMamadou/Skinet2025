@@ -43,7 +43,7 @@ public class ProductSpecParams
     private string? _search;
     public string  Search
     {
-        get => _search ?? "";
+        get => _search ?? "";//l'opérateur Or est "??"
         set => _search = value?.ToLower();
     }
     

@@ -14,12 +14,13 @@ public class ProductsController(IGenericRepository<Product> repo) : BaseApiContr
 {
    
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Product>>> GetProducts([FromQuery] ProductSpecParams specParams)
+    public async Task<ActionResult<IEnumerable<Product>>> GetProducts(
+        [FromQuery] ProductSpecParams specParams)
     {
         var spec = new ProductSpecification(specParams);
 
-                
-        return Ok(await CreatePagedResult(repo, spec, specParams.PageIndex, specParams.PageSize));
+
+        return await CreatePagedResult(repo, spec,specParams.PageIndex, specParams.PageSize);
     }
 
     [HttpGet("{id:int}")] //api/products/3
